@@ -1,0 +1,90 @@
+﻿FUNCTION_BLOCK "KeypadFunction"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      clear : Bool;
+   END_VAR
+
+   VAR_OUTPUT 
+      number : String[20];
+   END_VAR
+
+   VAR_IN_OUT 
+      character : Byte;
+   END_VAR
+
+   VAR 
+      lastChar : Char := ' ';
+      iterator : SInt := 0;
+      flag : Bool;
+   END_VAR
+
+
+BEGIN
+	(*
+	* MIT licence: 2009-2024 Inveo (Kozy) 
+	* Author: Wiktor Bien
+	* KeypadFunction
+	
+	/****************************************************************************
+	*
+	* This demo showcases keyboard help function block. It can concate the characters that user provides.
+	* It can also clear the lcd by attaching function button as "esc" or "enter". It also supports cursor.
+	* 
+	****************************************************************************/
+	*)
+	
+	
+	REGION connectChars
+	    
+	    IF #clear = 1 THEN
+	        #number := ' ';
+	        #character := 2#0;
+	        #iterator := 1;
+	        ;
+	    END_IF;
+	    
+	    
+	    IF #character <> 2#0 AND #character <> 'L' AND #character <> 'R' AND #character <> 'U' AND #character <> 'D'
+	        AND #character <> 'C' AND #character <> 'X' THEN
+	        #number[#iterator] := #character;
+	        #character := 2#0
+	        ;
+	        #iterator := #iterator + 1;
+	        ;
+	    END_IF;
+	    
+	    IF #character = 'U' THEN
+	        #character := 2#0;
+	        ;
+	    END_IF;
+	    
+	    IF #character = 'D' THEN
+	        #character := 2#0;
+	        ;
+	    END_IF;
+	    
+	    IF #character = 'L' THEN
+	        #iterator := #iterator - 1;
+	        #character := 2#0;
+	        ;
+	    END_IF;
+	    
+	    IF #character = 'R' THEN
+	        #iterator := #iterator +1;
+	        #character := 2#0;
+	        ;
+	    END_IF;
+	    
+	END_REGION
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+END_FUNCTION_BLOCK
+

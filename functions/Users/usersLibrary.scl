@@ -1,0 +1,142 @@
+﻿FUNCTION "hexToString" : String
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      HEX_VAL : Byte;
+   END_VAR
+
+   VAR_TEMP 
+      Digit : Int;
+      C : Int;
+      t_HexToStr : String[2];
+   END_VAR
+
+
+BEGIN
+	#Digit := BYTE_TO_INT(#HEX_VAL) / 16;
+	IF (#Digit <= 16) OR (#Digit >= 0) THEN
+	    IF #Digit < 10 THEN
+	        #C := #Digit + 48;
+	    ELSE
+	        #C := #Digit + 55;
+	    END_IF;
+	    #t_HexToStr := INT_TO_CHAR(#C);
+	ELSE
+	    #hexToString := 'Invalid HEX character in string';
+	    RETURN;
+	END_IF;
+	
+	#Digit := BYTE_TO_INT(#HEX_VAL) - (#Digit * 16);
+	IF (#Digit <= 16) OR (#Digit >= 0) THEN
+	    IF #Digit < 10 THEN
+	        #C := #Digit + 48;
+	    ELSE
+	        #C := #Digit + 55;
+	    END_IF;
+	    #hexToString := CONCAT(IN1 := #t_HexToStr, IN2 := INT_TO_CHAR(#C));
+	ELSE
+	    #hexToString := 'Invalid HEX character in string';
+	    RETURN;
+	END_IF;
+END_FUNCTION
+
+FUNCTION_BLOCK "User administration"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      uid_in : String;
+      processValue : UInt;
+      addUser : Bool;
+   END_VAR
+
+   VAR_OUTPUT DB_SPECIFIC
+      readUserId : UInt;
+      writeUserId : UInt;
+   END_VAR
+   VAR_OUTPUT 
+      uidOut : String;
+   END_VAR
+
+   VAR_IN_OUT DB_SPECIFIC
+      readUserIdBut : Bool;
+      writeUserIdBut : Bool;
+   END_VAR
+   VAR_IN_OUT 
+      codeLenCut : Int;
+      uid_0 : Byte;
+      uid_1 : Byte;
+      uid_2 : Byte;
+      uid_3 : Byte;
+      uid_4 : Byte;
+      uid_5 : Byte;
+      uid_6 : Byte;
+      uid_7 : Byte;
+      uid_8 : Byte;
+      uid_9 : Byte;
+      Code : String;
+   END_VAR
+
+   VAR 
+      i : Int;
+      j : Int;
+      str : Array[0..9] of String[4];
+   END_VAR
+
+
+BEGIN
+	(*
+	* MIT licence: 2009-2024 Inveo (Kozy) 
+	* Author: Wiktor Bien
+	
+	/****************************************************************************
+	*
+	* This demo showcases user administration help function block. It can read and write users using embedded reader memory.
+	* It can also limit the string length depending to the numebr of bytes you want to read using "codeLenCut" var.
+	* 
+	****************************************************************************/
+	*)
+	
+	IF #readUserIdBut THEN
+	    #readUserId := #processValue;
+	    #uidOut := #uid_in;
+	ELSE
+	    #readUserId := 0;
+	    ;
+	END_IF;
+	
+	IF #writeUserIdBut THEN
+	    #writeUserId := #processValue;
+	    #uidOut := #Code;
+	ELSE
+	    #writeUserId := 0;
+	    ;
+	END_IF;
+	
+	#str[0] := "hexToString"(#uid_0);
+	#str[1] := "hexToString"(#uid_1);
+	#str[2] := "hexToString"(#uid_2);
+	#str[3] := "hexToString"(#uid_3);
+	#str[4] := "hexToString"(#uid_4);
+	#str[5] := "hexToString"(#uid_5);
+	#str[6] := "hexToString"(#uid_6);
+	#str[7] := "hexToString"(#uid_7);
+	#str[8] := "hexToString"(#uid_8);
+	#str[9] := "hexToString"(#uid_9);
+	
+	
+	IF #codeLenCut >= 2 THEN
+	    #Code := CONCAT(IN1 := #str[0], IN2 := #str[1]);
+	    ;
+	END_IF;
+	
+	FOR #j := 2 TO #codeLenCut DO
+	    #Code := CONCAT(IN1 := #Code, IN2 := #str[#j]);
+	    ;
+	END_FOR;
+	
+	
+	
+	
+	
+END_FUNCTION_BLOCK
+
