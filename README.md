@@ -1,6 +1,6 @@
 The ropo is devided by:
 
-- db files for 3 types of readers - depending to deatures that reader consists
+- db files for 3 types of readers - depending to features that each reader consists
 - function files for user administration and keyboard
 - example Tia Portal project with all basic features integrated
 
