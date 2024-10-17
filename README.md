@@ -11,3 +11,5 @@ https://docs.google.com/document/d/e/2PACX-1vTIk2qQGCJ_qneXGtwtmVftmzvaXYycTNk7N
 Programming manual: 
 
 https://docs.google.com/document/d/e/2PACX-1vQAgMaXzv39K_BNsgBYb8O6cKU7hPRoRKDqxJMTPm8JU8GLStsRzSr2T2M6PsGrJJQrfyFmpzxwRGkt/pub
+
+![image](https://github.com/user-attachments/assets/bb1d7370-5f73-4d55-baa3-c853782a4c99)
