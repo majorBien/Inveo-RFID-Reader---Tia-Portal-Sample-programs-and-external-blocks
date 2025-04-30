@@ -100,7 +100,7 @@ BEGIN
 	    #readUserId := #processValue;
 	    #uidOut := #uid_in;
 	ELSE
-	    #readUserId := 0;
+	    #readUserId := 65535;
 	    ;
 	END_IF;
 	
@@ -108,7 +108,7 @@ BEGIN
 	    #writeUserId := #processValue;
 	    #uidOut := #Code;
 	ELSE
-	    #writeUserId := 0;
+	    #writeUserId := 65535;
 	    ;
 	END_IF;
 	
