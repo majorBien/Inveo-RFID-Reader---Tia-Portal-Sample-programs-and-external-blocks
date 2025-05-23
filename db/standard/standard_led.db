@@ -1,0 +1,51 @@
+﻿DATA_BLOCK "control"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+NON_RETAIN
+   STRUCT 
+      Q_resetNewIdFlag : Bool;
+      I_newIdFlag : Bool;
+      I_in1 : Bool;
+      I_in2 : Bool;
+      I_out1 : Bool;
+      I_out2 : Bool;
+      I_liveBit : Bool;
+      I_uidLen : USInt;
+      I_uid : Array[0..9] of Byte;
+      I_userld : UInt;
+      I_group : USInt;
+      I_name1 : String[20];
+      I_name2 : String[20];
+      Q_out1_ctrl : Bool;
+      Q_out2_ctrl : Bool;
+      Q_led_R : Bool;
+      Q_led_G : Bool;
+      Q_soundSet : USInt;
+   END_STRUCT;
+
+
+BEGIN
+
+END_DATA_BLOCK
+
+DATA_BLOCK "user_editor"
+{ S7_Optimized_Access := 'FALSE' }
+VERSION : 0.1
+NON_RETAIN
+   STRUCT 
+      readUserId : UInt;
+      writeUserId : UInt;
+      addNewUser : Bool;
+      currentUserId : UInt;
+      uid : String[20];
+      name1 : String[20];
+      name2 : String[20];
+      group : USInt;
+      active : Bool;
+   END_STRUCT;
+
+
+BEGIN
+
+END_DATA_BLOCK
+
